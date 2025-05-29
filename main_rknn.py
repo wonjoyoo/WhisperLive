@@ -45,11 +45,13 @@ class LocalServeClientRknn(ServeClientRknn):
     def send_transcription_to_client(self, segments):
         prompt = " ".join([seg['text'] for seg in segments])
         if self.last_prompt != prompt:
-            print(self._last_whisper_segment['text'])
+            # 수정: _last_whisper_segment가 없을 경우 대비
+            if hasattr(self, "_last_whisper_segment") and "text" in self._last_whisper_segment:
+                print(self._last_whisper_segment["text"])
+            else:
+                print(prompt)  # 초기 상태에서는 prompt 출력
             self.last_prompt = prompt
-            self.transcription_queue.put({
-                'prompt': prompt,
-            })
+            self.transcription_queue.put({'prompt': prompt})
 # 클라이언트 생성
 client = LocalServeClientRknn(
     language="ko",

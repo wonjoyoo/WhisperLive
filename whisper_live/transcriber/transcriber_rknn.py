@@ -28,10 +28,11 @@ def init_model(model_path):
 
 
 def run_encoder(encoder_model, x):
-    return encoder_model.inference(inputs=x)[0]
+    return encoder_model.inference(inputs=[x])[0]  # ✅ 리스트로 감싸기
 
 def run_decoder(decoder_model, tokens, out_encoder):
-    return decoder_model.inference([np.asarray([tokens], dtype="int64"), out_encoder])[0]
+    return decoder_model.inference(inputs=[np.asarray([tokens], dtype="int64"), out_encoder])[0]  # ✅ 명시적 리스트
+
 
 def log_mel_spectrogram(audio, n_mels=80):
     N_FFT = 400
