@@ -43,6 +43,7 @@ class LocalServeClientRknn(ServeClientRknn):
         pass
 
     def send_transcription_to_client(self, segments):
+        print (segments)
         prompt = " ".join([seg['text'] for seg in segments])
         
         if self.last_prompt != prompt:
