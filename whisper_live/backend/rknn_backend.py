@@ -45,9 +45,9 @@ class ServeClientRknn(ServeClientBase):
         self.use_vad = use_vad
 
         self.model_paths = {
-            "encoder": "~/rknn_model_zoo/examples/whisper/model/whisper_encoder_base_20s.rknn",
-            "decoder": "~/rknn_model_zoo/examples/whisper/model/whisper_decoder_base_20s.rknn",
-            "vocab": "~/rknn_model_zoo/examples/whisper/model/vocab_en.txt"
+            "encoder": "/home/orangepi/rknn_model_zoo/examples/whisper/model/whisper_encoder_base_20s.rknn",
+            "decoder": "/home/orangepi/rknn_model_zoo/examples/whisper/model/whisper_decoder_base_20s.rknn",
+            "vocab": "/home/orangepi/rknn_model_zoo/examples/whisper/model/vocab_en.txt"
         }
 
         try:

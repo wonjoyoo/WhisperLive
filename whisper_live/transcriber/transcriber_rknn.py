@@ -36,7 +36,7 @@ def log_mel_spectrogram(audio, n_mels=80):
     window = torch.hann_window(N_FFT)
     stft = torch.stft(torch.from_numpy(audio), N_FFT, HOP_LENGTH, window=window, return_complex=True)
     magnitudes = stft[..., :-1].abs() ** 2
-    filters = np.loadtxt("../model/mel_80_filters.txt", dtype=np.float32).reshape((80, 201))
+    filters = np.loadtxt("/home/orangepi/rknn_model_zoo/examples/whisper/model/mel_80_filters.txt", dtype=np.float32).reshape((80, 201))
     mel_spec = torch.from_numpy(filters) @ magnitudes
     log_spec = torch.clamp(mel_spec, min=1e-10).log10()
     log_spec = torch.maximum(log_spec, log_spec.max() - 8.0)
