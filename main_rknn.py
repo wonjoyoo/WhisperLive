@@ -52,6 +52,7 @@ class LocalServeClientRknn(ServeClientRknn):
                 print(prompt)  # 초기 상태에서는 prompt 출력
             self.last_prompt = prompt
             self.transcription_queue.put({'prompt': prompt})
+
 # 클라이언트 생성
 client = LocalServeClientRknn(
     language="ko",
