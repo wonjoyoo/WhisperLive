@@ -3,7 +3,46 @@ import numpy as np
 import torch
 import torch.nn.functional as F
 import scipy
-from whisper_live.utils import Segment  # 추가
+from dataclasses import asdict, dataclass
+from typing import BinaryIO, Iterable, List, Optional, Tuple, Union
+from warnings import warn
+
+@dataclass
+class Word:
+    start: float
+    end: float
+    word: str
+    probability: float
+
+    def _asdict(self):
+        warn(
+            "Word._asdict() method is deprecated, use dataclasses.asdict(Word) instead",
+            DeprecationWarning,
+            2,
+        )
+        return asdict(self)
+
+@dataclass
+class Segment:
+    id: int
+    seek: int
+    start: float
+    end: float
+    text: str
+    tokens: List[int]
+    avg_logprob: float
+    compression_ratio: float
+    no_speech_prob: float
+    words: Optional[List[Word]]
+    temperature: Optional[float]
+
+    def _asdict(self):
+        warn(
+            "Segment._asdict() method is deprecated, use dataclasses.asdict(Segment) instead",
+            DeprecationWarning,
+            2,
+        )
+        return asdict(self)
 
 
 def read_vocab(vocab_path):
