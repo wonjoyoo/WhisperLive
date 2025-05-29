@@ -43,7 +43,7 @@ class LocalServeClientFasterWhisper(ServeClientFasterWhisper):
         pass
 
     def send_transcription_to_client(self, segments):  ## override
-        #print(segments)
+        print(segments)
         # segments: 리스트 of {'text': ...}
         prompt = " ".join([seg['text'] for seg in segments])
         

@@ -3,6 +3,7 @@ import numpy as np
 import torch
 import torch.nn.functional as F
 import scipy
+from whisper_live.utils import Segment  # 추가
 
 
 def read_vocab(vocab_path):
@@ -87,21 +88,23 @@ class RKNNWhisperModel:
             tokens.append(next_token)
             result_str += self.vocab.get(str(next_token), '')
 
-        segment = {
-            "id": 0,
-            "seek": 0,
-            "start": 0.0,
-            "end": 2.0,
-            "text": result_str,
-            "tokens": [],
-            "avg_logprob": 0.0,
-            "compression_ratio": 1.0,
-            "no_speech_prob": 0.0,
-            "words": None,
-            "temperature": 0.0
-        }
+        segment = Segment(
+            id=0,
+            seek=0,
+            start=0.0,
+            end=2.0,
+            text=result_str,
+            tokens=tokens,
+            avg_logprob=0.0,
+            compression_ratio=1.0,
+            no_speech_prob=0.0,
+            words=None,
+            temperature=0.0
+        )
+
         info = {
             "language": "en",
             "language_probability": 1.0
         }
+
         return [segment], info
