@@ -20,9 +20,12 @@ def init_model(model_path):
     model = RKNN()
     if model.load_rknn(model_path) != 0:
         raise RuntimeError(f"Failed to load RKNN model: {model_path}")
-    if model.init_runtime() != 0:
+
+    # target을 명시적으로 설정 (Orange Pi는 일반적으로 'rk3588')
+    if model.init_runtime(target='rk3588') != 0:
         raise RuntimeError(f"Failed to init RKNN runtime for: {model_path}")
     return model
+
 
 def run_encoder(encoder_model, x):
     return encoder_model.inference(inputs=x)[0]

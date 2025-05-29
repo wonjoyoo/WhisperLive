@@ -61,12 +61,15 @@ class ServeClientRknn(ServeClientBase):
                 self.create_model()
         except Exception as e:
             logging.error(f"Failed to load model: {e}")
-            self.websocket.send(json.dumps({
-                "uid": self.client_uid,
-                "status": "ERROR",
-                "message": f"Failed to load model"
-            }))
-            self.websocket.close()
+            if self.websocket:
+                self.websocket.send(json.dumps({
+                    "uid": self.client_uid,
+                    "status": "ERROR",
+                    "message": f"Failed to load model"
+                }))
+                self.websocket.close()
+            else:
+                logging.error(f"[{self.client_uid}] Failed to load model (no websocket mode)")
             return
 
         self.trans_thread = threading.Thread(target=self.speech_to_text)
