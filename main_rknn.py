@@ -44,6 +44,7 @@ class LocalServeClientRknn(ServeClientRknn):
 
     def send_transcription_to_client(self, segments):
         prompt = " ".join([seg['text'] for seg in segments])
+        
         if self.last_prompt != prompt:
             # 수정: _last_whisper_segment가 없을 경우 대비
             if hasattr(self, "_last_whisper_segment") and "text" in self._last_whisper_segment:

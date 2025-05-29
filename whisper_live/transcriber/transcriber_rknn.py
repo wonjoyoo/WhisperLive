@@ -125,7 +125,10 @@ class RKNNWhisperModel:
                 pop_id -= 1
             tokens.pop(pop_id)
             tokens.append(next_token)
-            result_str += self.vocab.get(str(next_token), '')
+            token_text = self.vocab.get(str(next_token), '')
+            token_text = token_text.replace('Ġ', ' ')  # 공백 토큰 처리
+            result_str += token_text
+
 
         segment = Segment(
             id=0,
